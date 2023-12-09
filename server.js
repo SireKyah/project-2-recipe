@@ -9,6 +9,7 @@ const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const passport = require('passport');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const recipesRouter = require('./routes/recipes');
@@ -20,6 +21,13 @@ const sessionStore = new MongoDBStore({
     uri: process.env.DATABASE_URL,
     collection: 'sessions',
 });
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(methodOverride('_method'));
 
 sessionStore.on('error', function (error) {
     console.log(error);
@@ -72,3 +80,5 @@ app.get('/logout', (req, res) => {
 app.listen(PORT, () => {
     console.info(`Listening on ${PORT}`);
 });
+
+module.exports = app;

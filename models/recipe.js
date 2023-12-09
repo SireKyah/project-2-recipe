@@ -5,7 +5,7 @@ const ingredientsSchema = new mongoose.Schema({
         type: Number,
         min: 1,
         max: 1,
-        requred: true,
+        required: true, // Corrected typo
     },
     measurement: {
         type: String,
@@ -24,13 +24,29 @@ const instructionsSchema = new mongoose.Schema({
         required: true,
     },
     step: {
-        type: String,
+        type: String, // Corrected type to String
+        required: true,
+    },
+    totalPrepTime: {
+        type: Number,
+        required: true,
+    },
+    totalCookTime: {
+        type: Number,
+        required: true,
+    },
+    totalTime: {
+        type: Number,
         required: true,
     },
 });
 
 const recipeSchema = new mongoose.Schema({
     recipeTitle: {
+        type: String,
+        required: true,
+    },
+    recipeImage: {
         type: String,
         required: true,
     },
@@ -43,7 +59,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    recipe: [recipeSchema],
+    recipes: [recipeSchema], // Renamed from 'recipe' to 'recipes' for clarity
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UserRecipe', userSchema);

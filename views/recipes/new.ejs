@@ -1,0 +1,114 @@
+<%- include('../partials/header') %>
+
+<body>
+    <h1>Add a New Recipe</h1>
+
+    <form action="/recipes" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="recipeTitle">Recipe Title:</label>
+        <input type="text" id="recipeTitle" name="recipeTitle" required>
+
+        <label for="recipeImage">Recipe Image URL:</label>
+        <input type="text" id="recipeImage" name="recipeImage" required>
+
+        <h2>Ingredients:</h2>
+        <div id="ingredients-list">
+            <!-- Ingredient input fields will be added dynamically using JavaScript -->
+            <div class="ingredient">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="ingredients[0][amount]" min="1" required>
+
+                <label for="measurement">Measurement:</label>
+                <select id="measurement" name="ingredients[0][measurement]" required>
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                    <option value="tbsp">tbsp</option>
+                    <option value="tsp">tsp</option>
+                    <option value="cup">cup</option>
+                </select>
+
+                <label for="ingredientName">Ingredient Name:</label>
+                <input type="text" id="ingredientName" name="ingredients[0][ingredientName]" required>
+            </div>
+        </div>
+        <button type="button" onclick="addIngredientField()">Add Ingredient</button>
+
+        <h2>Instructions:</h2>
+        <div id="instructions-list">
+            <!-- Instruction input fields will be added dynamically using JavaScript -->
+            <div class="instruction">
+                <label for="stepNum">Step Number:</label>
+                <input type="number" id="stepNum" name="instructions[0][stepNum]" required>
+
+                <label for="step">Step:</label>
+                <textarea id="step" name="instructions[0][step]" required></textarea>
+
+                <label for="totalPrepTime">Total Prep Time (in minutes):</label>
+                <input type="number" id="totalPrepTime" name="instructions[0][totalPrepTime]" required>
+
+                <label for="totalCookTime">Total Cook Time (in minutes):</label>
+                <input type="number" id="totalCookTime" name="instructions[0][totalCookTime]" required>
+
+                <label for="totalTime">Total Time (in minutes):</label>
+                <input type="number" id="totalTime" name="instructions[0][totalTime]" required>
+            </div>
+        </div>
+        <button type="button" onclick="addInstructionField()">Add Instruction</button>
+
+        <button type="submit">Add Recipe</button>
+    </form>
+
+    <script>
+        function addIngredientField() {
+            const ingredientsList = document.getElementById('ingredients-list');
+            const newIngredient = document.createElement('div');
+            newIngredient.className = 'ingredient';
+            newIngredient.innerHTML = `
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="ingredients[${Date.now()}][amount]" min="1" required>
+    
+            <label for="measurement">Measurement:</label>
+            <select id="measurement" name="ingredients[${Date.now()}][measurement]" required>
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="tbsp">tbsp</option>
+              <option value="tsp">tsp</option>
+              <option value="cup">cup</option>
+            </select>
+    
+            <label for="ingredientName">Ingredient Name:</label>
+            <input type="text" id="ingredientName" name="ingredients[${Date.now()}][ingredientName]" required>
+          `;
+            ingredientsList.appendChild(newIngredient);
+        }
+
+        function addInstructionField() {
+            const instructionsList = document.getElementById('instructions-list');
+            const newInstruction = document.createElement('div');
+            newInstruction.className = 'instruction';
+            newInstruction.innerHTML = `
+            <label for="stepNum">Step Number:</label>
+            <input type="number" id="stepNum" name="instructions[${Date.now()}][stepNum]" required>
+    
+            <label for="step">Step:</label>
+            <textarea id="step" name="instructions[${Date.now()}][step]" required></textarea>
+    
+            <label for="totalPrepTime">Total Prep Time (in minutes):</label>
+            <input type="number" id="totalPrepTime" name="instructions[${Date.now()}][totalPrepTime]" required>
+    
+            <label for="totalCookTime">Total Cook Time (in minutes):</label>
+            <input type="number" id="totalCookTime" name="instructions[${Date.now()}][totalCookTime]" required>
+    
+            <label for="totalTime">Total Time (in minutes):</label>
+            <input type="number" id="totalTime" name="instructions[${Date.now()}][totalTime]" required>
+          `;
+            instructionsList.appendChild(newInstruction);
+        }
+    </script>
+</body>
+
+</html>
+
+    <%- include('../partials/footer') %>
