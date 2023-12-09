@@ -10,6 +10,9 @@ const passport = require('passport');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const indexRouter = require('./routes/index');
+const recipesRouter = require('./routes/recipes');
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -38,6 +41,9 @@ app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
+
+app.use('/', indexRouter);
+app.use('/recipes', recipesRouter);
 
 app.get('/', (req, res) => {
     res.render('index');

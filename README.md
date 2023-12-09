@@ -8,9 +8,9 @@
 
 ## Want to see the app and the plan.
 
--   here is the link the website [Recipe_For_Your_Soul](https://github.com/SireKyah/project-2-recipe)
+-   here is the link the website [Recipe_For_Your_Soul](https://project-2-recipe.onrender.com) (On Render)
 
--   here is the link for the plan [Project_2_Trello_Board](https://trello.com/b/FfBsu4jk/reciceappprogress)
+-   here is the link for the plan [Project_2_Trello_Board](https://trello.com/b/FfBsu4jk/reciceappprogress) (On Trello Board)
 
 ## Screenshots of the websites
 
@@ -22,4 +22,4 @@
 
 ## Future plan
 
--   you can check this in the "Ice Box" sectin on the plan.
+-   you can check this in the "Ice Box" section on the plan.
