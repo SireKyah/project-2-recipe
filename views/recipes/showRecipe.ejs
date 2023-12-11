@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+    <body>
+        <h1>
+            <%= user.name %>'s Recipe
+        </h1>
+
+            <div class="recipe">
+                <h2>
+                    <%= recipe.recipeTitle %>
+                </h2>
+                <img src="<%= recipe.recipeImage %>" alt="<%= recipe.recipeTitle %>">
+
+                <h3>Ingredients:</h3>
+                <ul>
+                    <% recipe.ingredients.forEach(ingredient=> { %>
+                        <li>
+                            <%= ingredient.amount %>
+                                <%= ingredient.measurement %>
+                                    <%= ingredient.ingredientName %>
+                        </li>
+                        <% }); %>
+                </ul>
+
+                <h3>Instructions:</h3>
+                <ol>
+                    <% recipe.instructions.forEach(instruction=> { %>
+                        <li>
+                            <%= instruction.stepNum %>. <%= instruction.step %>
+                        </li>
+                        <% }); %>
+                </ol>
+            </div>
+
+
+                <%- include('../partials/footer') %>

@@ -5,7 +5,7 @@ const ingredientsSchema = new mongoose.Schema({
         type: Number,
         min: 1,
         max: 1,
-        required: true, // Corrected typo
+        required: true,
     },
     measurement: {
         type: String,
@@ -24,7 +24,7 @@ const instructionsSchema = new mongoose.Schema({
         required: true,
     },
     step: {
-        type: String, // Corrected type to String
+        type: String,
         required: true,
     },
     totalPrepTime: {
@@ -54,12 +54,14 @@ const recipeSchema = new mongoose.Schema({
     instructions: [instructionsSchema],
 });
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-    },
-    recipes: [recipeSchema], // Renamed from 'recipe' to 'recipes' for clarity
-});
+// const userSchema = new mongoose.Schema({
+//     username: {
+//         type: String,
+//         required: true,
+//     },
+//     recipes: [recipeSchema],
+// });
 
-module.exports = mongoose.model('UserRecipe', userSchema);
+// module.exports = mongoose.model('UserRecipe', userSchema);
+
+module.exports = recipeSchema;
