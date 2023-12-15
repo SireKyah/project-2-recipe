@@ -7,6 +7,7 @@ module.exports = {
     createRecipe,
     deleteRecipe,
     editRecipe,
+    updateRecipe,
 };
 
 async function allRecipes(req, res) {
@@ -66,6 +67,35 @@ async function deleteRecipe(req, res) {
         res.redirect('/recipes');
     } catch (error) {
         console.error('Error deleting recipe:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+function editRecipe(req, res) {
+    const recipeId = req.params.id;
+    const user = req.user;
+    const recipe = user.recipes.id(recipeId);
+    res.render('/recipes/editRecipes', { user, recipe });
+}
+
+async function updateRecipe(req, res) {
+    const recipeId = req.params.id;
+    try {
+        const user = await Users.findOne({ 'recipes._id': recipeId });
+
+        if (user) {
+            const recipeToUpdate = user.recipes.id(recipeId);
+            recipeToUpdate.set(req.body);
+
+            await user.save();
+            console.log('Recipe has been updated');
+        } else {
+            console.log('User or recipe not found');
+        }
+
+        res.redirect(`/recipe/${recipeId}`);
+    } catch (error) {
+        console.error('Error updating recipe:', error);
         res.status(500).send('Internal Server Error');
     }
 }

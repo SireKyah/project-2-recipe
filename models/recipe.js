@@ -9,10 +9,17 @@ const ingredientsSchema = new mongoose.Schema({
     },
     measurement: {
         type: String,
-        enum: ['g', 'kg', 'tbsp', 'tsp', 'cup'],
+        enum: ['g', 'kg', 'tbsp', 'tsp', 'cup', 'piece'],
         required: true,
     },
     ingredientName: {
+        type: String,
+        required: true,
+    },
+});
+
+const descriptionsSchema = new mongoose.Schema({
+    recipeDescription: {
         type: String,
         required: true,
     },
@@ -38,6 +45,7 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    descriptions: [descriptionsSchema],
     ingredients: [ingredientsSchema],
     instructions: [instructionsSchema],
 });

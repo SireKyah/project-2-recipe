@@ -10,6 +10,7 @@ const passport = require('passport');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const logger = require('morgan');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const recipesRouter = require('./routes/recipes');
@@ -27,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 sessionStore.on('error', function (error) {
     console.log(error);

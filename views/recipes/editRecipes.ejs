@@ -1,0 +1,67 @@
+<%- include('../partials/header') %>
+<h1>Edit Recipe</h1>
+
+<% if (recipe) { %>
+    <form action="/recipes/<%= recipe._id %>/edit" method="post">
+        <!-- You may need to adjust these fields based on your schema -->
+        <label for="recipeTitle">Recipe Title:</label>
+        <input type="text" id="recipeTitle" name="recipeTitle" value="<%= recipe.recipeTitle %>" required>
+        <br>
+
+        <label for="recipeImage">Recipe Image URL:</label>
+        <input type="text" id="recipeImage" name="recipeImage" value="<%= recipe.recipeImage %>" required>
+        <br>
+
+        <label for="recipeDescription">Recipe Description:</label>
+        <textarea id="recipeDescription" name="recipeDescription"
+            required><%= recipe.descriptions[0].recipeDescription %></textarea>
+        <br>
+
+        <!-- Add fields for editing ingredients and instructions -->
+        <!-- Adjust these fields based on your schema -->
+        <h2>Edit Ingredients</h2>
+        <% for (let i=0; i < recipe.ingredients.length; i++) { %>
+            <div class="ingredient">
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" min="1" max="1" value="<%= recipe.ingredients[i].amount %>" required>
+
+                <label for="measurement">Measurement:</label>
+                <select name="measurement" required>
+                    <option value="g" <%=recipe.ingredients[i].measurement==='g' ? 'selected' : '' %>>g</option>
+                    <option value="kg" <%=recipe.ingredients[i].measurement==='kg' ? 'selected' : '' %>>kg</option>
+                    <option value="tbsp" <%=recipe.ingredients[i].measurement==='tbsp' ? 'selected' : '' %>>tbsp
+                    </option>
+                    <option value="tsp" <%=recipe.ingredients[i].measurement==='tsp' ? 'selected' : '' %>>tsp</option>
+                    <option value="cup" <%=recipe.ingredients[i].measurement==='cup' ? 'selected' : '' %>>cup</option>
+                    <option value="piece" <%=recipe.ingredients[i].measurement==='piece' ? 'selected' : '' %>>piece
+                    </option>
+                </select>
+
+                <label for="ingredientName">Ingredient Name:</label>
+                <input type="text" name="ingredientName" value="<%= recipe.ingredients[i].ingredientName %>" required>
+
+                <button type="button" onclick="removeIngredient(this)">Remove</button>
+            </div>
+            <% } %>
+                <button type="button" onclick="addIngredient()">Add Ingredient</button>
+                <br>
+
+                <h2>Edit Instructions</h2>
+                <% for (let i=0; i < recipe.instructions.length; i++) { %>
+                    <div class="instruction">
+                        <label for="stepNum">Step Number:</label>
+                        <input type="number" name="stepNum" value="<%= recipe.instructions[i].stepNum %>" required>
+
+                        <label for="step">Instruction:</label>
+                        <textarea name="step" required><%= recipe.instructions[i].step %></textarea>
+
+                        <button type="button" onclick="removeInstruction(this)">Remove</button>
+                    </div>
+                    <% } %>
+                        <button type="button" onclick="addInstruction()">Add Instruction</button>
+                        <br>
+
+                        <button type="submit">Update Recipe</button>
+    </form>
+    <% } %>
+<%- include('../partials/footer') %>
