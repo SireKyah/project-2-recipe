@@ -29,9 +29,7 @@
                             Step <%= recipe.instructions[i].stepNum %>: <%= recipe.instructions[i].step %>
                         </p>
                         <% } %>
-
-                            <!-- Add a link to edit the recipe (if needed) -->
-                            <a href="recipes/<%= recipe.id %>/edit">Edit Recipe</a>
+                            <a href="<%= recipe.id %>/edit">Edit Recipe</a>
 
                             <% } else { %>
                                 <p>No recipe found.</p>

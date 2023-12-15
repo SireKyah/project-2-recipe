@@ -2,8 +2,7 @@
 <h1>Edit Recipe</h1>
 
 <% if (recipe) { %>
-    <form action="/recipes/<%= recipe._id %>/edit" method="post">
-        <!-- You may need to adjust these fields based on your schema -->
+    <form action="/recipes/<%= recipe.id %>?_method=PUT" method="post">
         <label for="recipeTitle">Recipe Title:</label>
         <input type="text" id="recipeTitle" name="recipeTitle" value="<%= recipe.recipeTitle %>" required>
         <br>
@@ -17,8 +16,6 @@
             required><%= recipe.descriptions[0].recipeDescription %></textarea>
         <br>
 
-        <!-- Add fields for editing ingredients and instructions -->
-        <!-- Adjust these fields based on your schema -->
         <h2>Edit Ingredients</h2>
         <% for (let i=0; i < recipe.ingredients.length; i++) { %>
             <div class="ingredient">
