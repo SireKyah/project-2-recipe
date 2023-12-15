@@ -1,37 +1,37 @@
 <%- include('../partials/header') %>
-<h1>Show Recipe</h1>
+    <div class="container">
+        <h1>
+            <%= recipe.recipeTitle %>
+        </h1>
+        <img src="<%= recipe.recipeImage %>" class="img-fluid" alt="<%= recipe.recipeTitle %> Image">
 
-<% if (recipe) { %>
-    <h2>
-        <%= recipe.recipeTitle %>
-    </h2>
-    <img src="<%= recipe.recipeImage %>" alt="<%= recipe.recipeTitle %> Image">
-
-    <h3>Descriptions:</h3>
-    <% for (let i=0; i < recipe.descriptions.length; i++) { %>
+        <h3>Descriptions:</h3>
         <p>
-            <%= recipe.descriptions[i].recipeDescription %>
+            <%= recipe.descriptions[0].recipeDescription %>
         </p>
-        <% } %>
 
-            <h3>Ingredients:</h3>
+        <h3>Ingredients:</h3>
+        <div class="row">
             <% for (let i=0; i < recipe.ingredients.length; i++) { %>
-                <p>
-                    Amount: <%= recipe.ingredients[i].amount %><br>
-                        Measurement: <%= recipe.ingredients[i].measurement %><br>
-                            Ingredient Name: <%= recipe.ingredients[i].ingredientName %>
-                </p>
+                <div class="col-md-4">
+                    <p>
+                        Amount: <%= recipe.ingredients[i].amount %><br>
+                            Measurement: <%= recipe.ingredients[i].measurement %><br>
+                                Ingredient Name: <%= recipe.ingredients[i].ingredientName %>
+                    </p>
+                </div>
                 <% } %>
+        </div>
 
-                    <h3>Instructions:</h3>
-                    <% for (let i=0; i < recipe.instructions.length; i++) { %>
-                        <p>
-                            Step <%= recipe.instructions[i].stepNum %>: <%= recipe.instructions[i].step %>
-                        </p>
-                        <% } %>
-                            <a href="<%= recipe.id %>/edit">Edit Recipe</a>
+        <h3>Instructions:</h3>
+        <ul>
+            <% for (let i=0; i < recipe.instructions.length; i++) { %>
+                <li>
+                    Step <%= recipe.instructions[i].stepNum %>: <%= recipe.instructions[i].step %>
+                </li>
+                <% } %>
+        </ul>
 
-                            <% } else { %>
-                                <p>No recipe found.</p>
-                                <% } %>
-                <%- include('../partials/footer') %>
+        <a href="<%= recipe.id %>/edit" class="btn btn-primary">Edit Recipe</a>
+    </div>
+    <%- include('../partials/footer') %>

@@ -1,89 +1,84 @@
 <%- include('../partials/header') %>
 
-<h1>Create New Recipe</h1>
+    <h1>Create New Recipe</h1>
 
-<form action="/recipes" method="post">
-    <label for="recipeTitle">Recipe Title:</label>
-    <input type="text" id="recipeTitle" name="recipeTitle" required>
-    <br>
-
-    <label for="recipeImage">Recipe Image URL:</label>
-    <input type="text" id="recipeImage" name="recipeImage" required>
-    <br>
-
-    <label for="recipeDescription">Recipe Description:</label>
-    <textarea id="recipeDescription" name="recipeDescription" required></textarea>
-    <br>
-
-    <h2>Ingredients</h2>
-    <div id="ingredientsContainer">
-        <div class="ingredient">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" min="1" max="1" required>
-
-            <label for="measurement">Measurement:</label>
-            <select id="measurement" name="measurement" required>
-                <option value="g">g</option>
-                <option value="kg">kg</option>
-                <option value="tbsp">tbsp</option>
-                <option value="tsp">tsp</option>
-                <option value="cup">cup</option>
-                <option value="piece">piece</option>
-            </select>
-
-            <label for="ingredientName">Ingredient Name:</label>
-            <input type="text" id="ingredientName" name="ingredientName" required>
-
-            <button type="button" onclick="removeIngredient(this)">Remove</button>
+    <form action="/recipes" method="post" class="row g-3">
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" id="recipeTitle" name="recipeTitle" class="form-control"
+                    placeholder="Recipe title here">
+                <label for="recipeTitle">Recipe Title:</label>
+            </div>
         </div>
-    </div>
-    <button type="button" onclick="addIngredient()">Add Ingredient</button>
-    <br>
 
-    <h2>Instructions</h2>
-    <div id="instructionsContainer">
-        <div class="instruction">
-            <label for="stepNum">Step Number:</label>
-            <input type="number" id="stepNum" name="stepNum" required>
-
-            <label for="step">Instruction:</label>
-            <textarea id="step" name="step" required></textarea>
-
-            <button type="button" onclick="removeInstruction(this)">Remove</button>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" id="recipeImage" name="recipeImage" class="form-control"
+                    placeholder="Recipe image Url here" required>
+                <label for="recipeImage">Recipe Image URL:</label>
+            </div>
         </div>
-    </div>
-    <button type="button" onclick="addInstruction()">Add Instruction</button>
-    <br>
 
-    <button type="submit">Create Recipe</button>
-</form>
+        <div class="col-md-12">
+            <label for="recipeDescription">Recipe Description:</label>
+            <textarea id="recipeDescription" name="descriptions[0][recipeDescription]" class="form-control"
+                required></textarea>
+        </div>
 
-<script>
-    function addIngredient() {
-        const container = document.getElementById('ingredientsContainer');
-        const newIngredient = container.children[0].cloneNode(true);
-        container.appendChild(newIngredient);
-    }
+        <h2 class="col-md-12">Ingredients</h2>
+        <div id="ingredientsContainer" class="col-md-12">
+            <div class="ingredient row">
+                <div class="col-md-3">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="ingredients[0][amount]" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="measurement" class="form-label">Measurement:</label>
+                    <select id="measurement" name="ingredients[0][measurement]" class="form-select" required>
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                        <option value="tbsp">tbsp</option>
+                        <option value="tsp">tsp</option>
+                        <option value="cup">cup</option>
+                        <option value="piece">piece</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="ingredientName" class="form-label">Ingredient Name:</label>
+                    <input type="text" id="ingredientName" name="ingredients[0][ingredientName]" class="form-control"
+                        required>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" onclick="removeIngredient(this)" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
 
-    function removeIngredient(button) {
-        const container = document.getElementById('ingredientsContainer');
-        if (container.children.length > 1) {
-            container.removeChild(button.parentNode);
-        }
-    }
+        <button type="button" onclick="addIngredient()" class="btn btn-primary">Add Ingredient</button>
+        <br>
 
-    function addInstruction() {
-        const container = document.getElementById('instructionsContainer');
-        const newInstruction = container.children[0].cloneNode(true);
-        container.appendChild(newInstruction);
-    }
+        <h2 class="col-md-12">Instructions</h2>
+        <div id="instructionsContainer" class="col-md-12">
+            <div class="instruction row">
+                <div class="col-md-2">
+                    <label for="stepNum">Step Number:</label>
+                    <input type="number" id="stepNum" name="instructions[0][stepNum]" class="form-control" required>
+                </div>
+                <div class="col-md-8">
+                    <label for="step">Instruction:</label>
+                    <textarea id="step" name="instructions[0][step]" class="form-control" required></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" onclick="removeInstruction(this)" class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </div>
 
-    function removeInstruction(button) {
-        const container = document.getElementById('instructionsContainer');
-        if (container.children.length > 1) {
-            container.removeChild(button.parentNode);
-        }
-    }
-</script>
+        <button type="button" onclick="addInstruction()" class="btn btn-primary">Add Instruction</button>
+        <br>
 
-    <%- include('../partials/footer') %>
+        <button type="submit" class="btn btn-success">Create Recipe</button>
+    </form>
+
+    <%- include('../partials/dynamic-inputs.ejs') %>
+        <%- include('../partials/footer') %>

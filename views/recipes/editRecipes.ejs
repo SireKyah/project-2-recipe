@@ -1,91 +1,101 @@
 <%- include('../partials/header') %>
-<h1>Edit Recipe</h1>
 
-<% if (recipe) { %>
-    <form action="/recipes/<%= recipe.id %>?_method=PUT" method="post">
-        <label for="recipeTitle">Recipe Title:</label>
-        <input type="text" id="recipeTitle" name="recipeTitle" value="<%= recipe.recipeTitle %>" required>
-        <br>
+    <div class="container">
+        <h1>Edit Recipe</h1>
 
-        <label for="recipeImage">Recipe Image URL:</label>
-        <input type="text" id="recipeImage" name="recipeImage" value="<%= recipe.recipeImage %>" required>
-        <br>
+        <% if (recipe) { %>
+            <form action="/recipes/<%= recipe.id %>?_method=PUT" method="post" class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" id="recipeTitle" name="recipeTitle" value="<%= recipe.recipeTitle %>"
+                            class="form-control" required>
+                        <label for="recipeTitle">Recipe Title:</label>
+                    </div>
+                </div>
 
-        <label for="recipeDescription">Recipe Description:</label>
-        <textarea id="recipeDescription" name="recipeDescription"
-            required><%= recipe.descriptions[0]?.recipeDescription %></textarea>
-        <br>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" id="recipeImage" name="recipeImage" value="<%= recipe.recipeImage %>"
+                            class="form-control" required>
+                        <label for="recipeImage">Recipe Image URL:</label>
+                    </div>
+                </div>
 
-        <h2>Edit Ingredients</h2>
-        <% for (let i=0; i < recipe.ingredients.length; i++) { %>
-            <div class="ingredient">
-                <label for="amount">Amount:</label>
-                <input type="number" name="amount" min="1" max="1" value="<%= recipe.ingredients[i].amount %>" required>
+                <div class="col-md-12">
+                    <label for="recipeDescription">Recipe Description:</label>
+                    <textarea id="recipeDescription" name="descriptions[0][recipeDescription]" class="form-control"
+                        required><%= recipe.descriptions[0]?.recipeDescription.trim() %></textarea>
+                </div>
 
-                <label for="measurement">Measurement:</label>
-                <select name="measurement" required>
-                    <option value="g" <%=recipe.ingredients[i].measurement==='g' ? 'selected' : '' %>>g</option>
-                    <option value="kg" <%=recipe.ingredients[i].measurement==='kg' ? 'selected' : '' %>>kg</option>
-                    <option value="tbsp" <%=recipe.ingredients[i].measurement==='tbsp' ? 'selected' : '' %>>tbsp
-                    </option>
-                    <option value="tsp" <%=recipe.ingredients[i].measurement==='tsp' ? 'selected' : '' %>>tsp</option>
-                    <option value="cup" <%=recipe.ingredients[i].measurement==='cup' ? 'selected' : '' %>>cup</option>
-                    <option value="piece" <%=recipe.ingredients[i].measurement==='piece' ? 'selected' : '' %>>piece
-                    </option>
-                </select>
-
-                <label for="ingredientName">Ingredient Name:</label>
-                <input type="text" name="ingredientName" value="<%= recipe.ingredients[i].ingredientName %>" required>
-
-                <button type="button" onclick="removeIngredient(this)">Remove</button>
-            </div>
-            <% } %>
-                <button type="button" onclick="addIngredient()">Add Ingredient</button>
+                <h2 class="col-md-12">Edit Ingredients</h2>
+                <div id="ingredientsContainer" class="col-md-12">
+                    <% for (let i=0; i < recipe.ingredients.length; i++) { %>
+                        <div class="ingredient row">
+                            <div class="col-md-3">
+                                <label for="amount">Amount:</label>
+                                <input type="number" name="ingredients[<%= i %>][amount]"
+                                    value="<%= recipe.ingredients[i].amount %>" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="measurement">Measurement:</label>
+                                <select name="ingredients[<%= i %>][measurement]" class="form-select" required>
+                                    <option value="g" <%=recipe.ingredients[i].measurement==='g' ? 'selected' : '' %>>g
+                                    </option>
+                                    <option value="kg" <%=recipe.ingredients[i].measurement==='kg' ? 'selected' : '' %>
+                                        >kg</option>
+                                    <option value="tbsp" <%=recipe.ingredients[i].measurement==='tbsp' ? 'selected' : ''
+                                        %>>tbsp</option>
+                                    <option value="tsp" <%=recipe.ingredients[i].measurement==='tsp' ? 'selected' : ''
+                                        %>>tsp</option>
+                                    <option value="cup" <%=recipe.ingredients[i].measurement==='cup' ? 'selected' : ''
+                                        %>>cup</option>
+                                    <option value="piece" <%=recipe.ingredients[i].measurement==='piece' ? 'selected'
+                                        : '' %>>piece</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ingredientName">Ingredient Name:</label>
+                                <input type="text" name="ingredients[<%= i %>][ingredientName]"
+                                    value="<%= recipe.ingredients[i].ingredientName %>" class="form-control" required>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="removeIngredient(this)"
+                                    class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+                <button type="button" onclick="addIngredient()" class="btn btn-primary">Add Ingredient</button>
                 <br>
 
-                <h2>Edit Instructions</h2>
-                <% for (let i=0; i < recipe.instructions.length; i++) { %>
-                    <div class="instruction">
-                        <label for="stepNum">Step Number:</label>
-                        <input type="number" name="stepNum" value="<%= recipe.instructions[i].stepNum %>" required>
+                <h2 class="col-md-12">Edit Instructions</h2>
+                <div id="instructionsContainer" class="col-md-12">
+                    <% for (let i=0; i < recipe.instructions.length; i++) { %>
+                        <div class="instruction row">
+                            <div class="col-md-2">
+                                <label for="stepNum">Step Number:</label>
+                                <input type="number" name="instructions[<%= i %>][stepNum]"
+                                    value="<%= recipe.instructions[i].stepNum %>" class="form-control" required>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="step">Instruction:</label>
+                                <textarea name="instructions[<%= i %>][step]" class="form-control"
+                                    required><%= recipe.instructions[i].step %></textarea>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="removeInstruction(this)"
+                                    class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+                <button type="button" onclick="addInstruction()" class="btn btn-primary">Add Instruction</button>
+                <br>
 
-                        <label for="step">Instruction:</label>
-                        <textarea name="step" required><%= recipe.instructions[i].step %></textarea>
+                <button type="submit" class="btn btn-success">Update Recipe</button>
+            </form>
+            <% } %>
+    </div>
 
-                        <button type="button" onclick="removeInstruction(this)">Remove</button>
-                    </div>
-                    <% } %>
-                        <button type="button" onclick="addInstruction()">Add Instruction</button>
-                        <br>
-
-                        <button type="submit">Update Recipe</button>
-    </form>
-    <script>
-        function addIngredient() {
-            const container = document.getElementById('ingredientsContainer');
-            const newIngredient = container.children[0].cloneNode(true);
-            container.appendChild(newIngredient);
-        }
-
-        function removeIngredient(button) {
-            const container = document.getElementById('ingredientsContainer');
-            if (container.children.length > 1) {
-                container.removeChild(button.parentNode);
-            }
-        }
-
-        function addInstruction() {
-            const container = document.getElementById('instructionsContainer');
-            const newInstruction = container.children[0].cloneNode(true);
-            container.appendChild(newInstruction);
-        }
-
-        function removeInstruction(button) {
-            const container = document.getElementById('instructionsContainer');
-            if (container.children.length > 1) {
-                container.removeChild(button.parentNode);
-            }
-        }
-    </script>
-    <% } %>
-<%- include('../partials/footer') %>
+    <%- include('../partials/dynamic-inputs.ejs') %>
+        <%- include('../partials/footer') %>

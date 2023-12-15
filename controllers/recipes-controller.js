@@ -11,7 +11,7 @@ module.exports = {
 };
 
 async function allRecipes(req, res) {
-    console.log('hello');
+    // console.log('hello');
     try {
         const users = await Users.find().populate(
             'recipes.ingredients recipes.instructions'
@@ -24,10 +24,10 @@ async function allRecipes(req, res) {
 }
 
 async function showRecipe(req, res) {
-    console.log('show recipe here');
+    // console.log('show recipe here');
     const recipeId = req.params.id;
     const user = await Users.findOne({ 'recipes._id': recipeId });
-    console.log(user);
+    // console.log(user);
     const recipe = user.recipes.id(recipeId);
     res.render('recipes/showRecipe', { user, recipe });
     // res.json(recipe);
@@ -40,14 +40,14 @@ function newRecipe(req, res) {
 async function createRecipe(req, res) {
     req.user.recipes.push(req.body);
     await req.user.save();
-    console.log(req.user);
+    // console.log(req.user);
     res.redirect('/recipes');
 }
 
 async function deleteRecipe(req, res) {
-    console.log('it works!!');
+    // console.log('it works!!');
     const recipeId = req.params.id;
-    console.log(recipeId);
+    // console.log(recipeId);
     try {
         // Find the user that has the recipe with the given _id
         const user = await Users.findOne({ 'recipes._id': recipeId });
@@ -76,7 +76,7 @@ async function editRecipe(req, res) {
     const recipeId = req.params.id;
     // const user = await Users.findOne({ 'recipes._id': recipeId });
     const recipe = req.user.recipes.id(recipeId);
-    console.log(recipe);
+    // console.log(recipe);
     res.render(`recipes/editRecipes`, { user: req.user, recipe });
 
     // if (user._id.equals(req.user._id)) {
@@ -88,8 +88,9 @@ async function editRecipe(req, res) {
 
 async function updateRecipe(req, res) {
     const recipeId = req.params.id;
+    console.log(req.body);
     try {
-        const user = await Users.findOne({ 'recipes._id': recipeId });
+        const user = req.user;
 
         if (user) {
             const recipeToUpdate = user.recipes.id(recipeId);

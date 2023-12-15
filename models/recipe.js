@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const ingredientsSchema = new mongoose.Schema({
     amount: {
         type: Number,
-        min: 1,
-        max: 1,
         required: true,
     },
     measurement: {

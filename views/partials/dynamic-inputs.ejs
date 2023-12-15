@@ -1,0 +1,29 @@
+<script>
+    const ingredientsContainer = document.getElementById('ingredientsContainer');
+    const instructionsContainer = document.getElementById('instructionsContainer');
+    let ingredientIndex = ingredientsContainer.children.length;
+    let instructionIndex = instructionsContainer.children.length;
+    function addIngredient() {
+        const newIngredient = ingredientsContainer.children[0].cloneNode(true);
+        newIngredient.innerHTML = newIngredient.innerHTML.replace(/ingredients\[\d+\]/g, (match) => match.replace(/\d/g, ingredientIndex));
+        ingredientsContainer.appendChild(newIngredient);
+        ingredientIndex++;
+    }
+    function removeIngredient(button) {
+        if (ingredientsContainer.children.length > 1) {
+            ingredientsContainer.removeChild(button.parentNode);
+        }
+    }
+    function addInstruction() {
+        const newInstruction = instructionsContainer.children[0].cloneNode(true);
+        newInstruction.innerHTML = newInstruction.innerHTML.replace(/instructions\[\d+\]/g, (match) => match.replace(/\d/g, instructionIndex));
+        instructionsContainer.appendChild(newInstruction);
+        instructionIndex++;
+    }
+    function removeInstruction(button) {
+        const instructionsContainer = document.getElementById('instructionsContainer');
+        if (instructionsContainer.children.length > 1) {
+            instructionsContainer.removeChild(button.parentNode);
+        }
+    }
+</script>

@@ -1,7 +1,5 @@
 <%- include('../partials/header') %>
-
-        <h1>List of Users</h1>
-
+    <div class="container">
         <% users.forEach(user=> { %>
             <div class="user">
                 <h2>
@@ -9,30 +7,42 @@
                 </h2>
 
                 <h3>Recipes List:</h3>
-                <ul>
+                <ul class="list-group">
                     <% user.recipes.forEach(recipe=> { %>
-                        <li>
+                        <li class="list-group-item">
                             <strong>
                                 <%= recipe.recipeTitle %>
                             </strong>
 
-                            <a href="/recipes/<%= recipe.id %>">
+                            <!-- Bootstrap Tooltip -->
+                            <span data-bs-toggle="tooltip" data-bs-placement="top" title="<%= recipe.descriptions.recipeDescription %>">
+                                <img src="<%= recipe.recipeImage %>" class="img-fluid"
+                                    alt="<%= recipe.recipeTitle %> Image">
+                            </span>
+
+                            <a href="/recipes/<%= recipe.id %>" class="btn btn-primary">
                                 More Details
                             </a>
 
-                            <form action="/recipes/<%= recipe.id %>/delete?_method=DELETE" method="POST">
-                                <button type="submit">delete Recipe</button>
+                            <form action="/recipes/<%= recipe.id %>/delete?_method=DELETE" method="POST"
+                                class="d-inline">
+                                <button type="submit" class="btn btn-danger">Delete Recipe</button>
                             </form>
-
-                            <!-- <a href="/recipes/<%= recipe.id %>/edit?_method=PUT">
-                                Edit Recipe
-                            </a> -->
-
-                            <img src="<%= recipe.recipeImage %>">
                         </li>
                         <% }); %>
                 </ul>
             </div>
             <% }); %>
+    </div>
 
-                <%- include('../partials/footer') %>
+    <!-- Bootstrap Tooltip Initialization -->
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        });
+    </script> -->
+
+    <%- include('../partials/footer') %>
