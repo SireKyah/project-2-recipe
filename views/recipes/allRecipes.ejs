@@ -13,10 +13,15 @@
                 <ul>
                     <% user.recipes.forEach(recipe=> { %>
                         <li>
-                            <strong><a href="/recipes/<%= recipe.id %>">
+                            <strong>
                                 <%= recipe.recipeTitle %>
-                            </a>  
                             </strong>
+                            <a href="/recipes/<%= recipe.id %>">
+                                More Details
+                            </a>
+                            <a href="/recipes/<%= recipe.id %>/delete">
+                                Delete Recipe
+                            </a>
                             <img src="<%= recipe.recipeImage %>">
                         </li>
                         <% }); %>

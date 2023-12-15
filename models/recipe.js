@@ -27,18 +27,6 @@ const instructionsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    totalPrepTime: {
-        type: Number,
-        required: true,
-    },
-    totalCookTime: {
-        type: Number,
-        required: true,
-    },
-    totalTime: {
-        type: Number,
-        required: true,
-    },
 });
 
 const recipeSchema = new mongoose.Schema({
@@ -53,15 +41,5 @@ const recipeSchema = new mongoose.Schema({
     ingredients: [ingredientsSchema],
     instructions: [instructionsSchema],
 });
-
-// const userSchema = new mongoose.Schema({
-//     username: {
-//         type: String,
-//         required: true,
-//     },
-//     recipes: [recipeSchema],
-// });
-
-// module.exports = mongoose.model('UserRecipe', userSchema);
 
 module.exports = recipeSchema;

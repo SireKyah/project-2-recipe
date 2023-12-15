@@ -2,12 +2,15 @@ const Users = require('../models/user');
 
 module.exports = {
     allRecipes,
+    showRecipe,
     newRecipe,
     createRecipe,
-    showRecipe,
+    deleteRecipe,
+    editRecipe,
 };
 
 async function allRecipes(req, res) {
+    console.log('hello');
     try {
         const users = await Users.find().populate(
             'recipes.ingredients recipes.instructions'
@@ -20,7 +23,7 @@ async function allRecipes(req, res) {
 }
 
 async function showRecipe(req, res) {
-    // console.log(req);
+    console.log('show recipe here');
     const recipeId = req.params.id;
     const user = await Users.findOne({ 'recipes._id': recipeId });
     console.log(user);
@@ -38,4 +41,31 @@ async function createRecipe(req, res) {
     await req.user.save();
     console.log(req.user);
     res.redirect('/recipes');
+}
+
+async function deleteRecipe(req, res) {
+    console.log('it works!!');
+    const recipeId = req.params.id;
+    console.log(recipeId);
+    try {
+        // Find the user that has the recipe with the given _id
+        const user = await Users.findOne({ 'recipes._id': recipeId });
+
+        // If the user is found, remove the recipe from the recipes array
+        if (user) {
+            user.recipes.pull({ _id: recipeId });
+
+            // Save the user document after removing the recipe
+            await user.save();
+
+            console.log('Recipe has been removed');
+        } else {
+            console.log('User or recipe not found');
+        }
+
+        res.redirect('/recipes');
+    } catch (error) {
+        console.error('Error deleting recipe:', error);
+        res.status(500).send('Internal Server Error');
+    }
 }
