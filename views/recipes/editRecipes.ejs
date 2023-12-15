@@ -13,7 +13,7 @@
 
         <label for="recipeDescription">Recipe Description:</label>
         <textarea id="recipeDescription" name="recipeDescription"
-            required><%= recipe.descriptions[0].recipeDescription %></textarea>
+            required><%= recipe.descriptions[0]?.recipeDescription %></textarea>
         <br>
 
         <h2>Edit Ingredients</h2>
@@ -60,5 +60,32 @@
 
                         <button type="submit">Update Recipe</button>
     </form>
+    <script>
+        function addIngredient() {
+            const container = document.getElementById('ingredientsContainer');
+            const newIngredient = container.children[0].cloneNode(true);
+            container.appendChild(newIngredient);
+        }
+
+        function removeIngredient(button) {
+            const container = document.getElementById('ingredientsContainer');
+            if (container.children.length > 1) {
+                container.removeChild(button.parentNode);
+            }
+        }
+
+        function addInstruction() {
+            const container = document.getElementById('instructionsContainer');
+            const newInstruction = container.children[0].cloneNode(true);
+            container.appendChild(newInstruction);
+        }
+
+        function removeInstruction(button) {
+            const container = document.getElementById('instructionsContainer');
+            if (container.children.length > 1) {
+                container.removeChild(button.parentNode);
+            }
+        }
+    </script>
     <% } %>
 <%- include('../partials/footer') %>

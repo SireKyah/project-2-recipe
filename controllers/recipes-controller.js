@@ -71,11 +71,19 @@ async function deleteRecipe(req, res) {
     }
 }
 
-function editRecipe(req, res) {
+async function editRecipe(req, res) {
+    // console.log(req.user);
     const recipeId = req.params.id;
-    const user = req.user;
-    const recipe = user.recipes.id(recipeId);
-    res.render('/recipes/editRecipes', { user, recipe });
+    // const user = await Users.findOne({ 'recipes._id': recipeId });
+    const recipe = req.user.recipes.id(recipeId);
+    console.log(recipe);
+    res.render(`recipes/editRecipes`, { user: req.user, recipe });
+
+    // if (user._id.equals(req.user._id)) {
+    // res.render(`/recipes/editRecipes`, { user,   recipe });
+    // } else {
+    //     res.redirect('/recipes');
+    // }
 }
 
 async function updateRecipe(req, res) {
@@ -93,7 +101,7 @@ async function updateRecipe(req, res) {
             console.log('User or recipe not found');
         }
 
-        res.redirect(`/recipe/${recipeId}`);
+        res.redirect(`/recipes/${recipeId}`);
     } catch (error) {
         console.error('Error updating recipe:', error);
         res.status(500).send('Internal Server Error');
