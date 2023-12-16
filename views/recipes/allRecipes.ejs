@@ -3,7 +3,7 @@
         <% users.forEach(user=> { %>
             <div class="user">
                 <h2>
-                    <%= user.username %>
+                    <%= user.name %>
                 </h2>
 
                 <h3>Recipes List:</h3>
@@ -34,15 +34,4 @@
             </div>
             <% }); %>
     </div>
-
-    <!-- Bootstrap Tooltip Initialization -->
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            })
-        });
-    </script> -->
-
     <%- include('../partials/footer') %>

@@ -11,27 +11,47 @@
         </p>
 
         <h3>Ingredients:</h3>
-        <div class="row">
-            <% for (let i=0; i < recipe.ingredients.length; i++) { %>
-                <div class="col-md-4">
-                    <p>
-                        Amount: <%= recipe.ingredients[i].amount %><br>
-                            Measurement: <%= recipe.ingredients[i].measurement %><br>
-                                Ingredient Name: <%= recipe.ingredients[i].ingredientName %>
-                    </p>
-                </div>
-                <% } %>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Measurement</th>
+                        <th scope="col">Ingredient Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i=0; i < recipe.ingredients.length; i++) { %>
+                        <tr>
+                            <td><%= recipe.ingredients[i].amount %></td>
+                            <td><%= recipe.ingredients[i].measurement %></td>
+                            <td><%= recipe.ingredients[i].ingredientName %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
 
         <h3>Instructions:</h3>
-        <ul>
-            <% for (let i=0; i < recipe.instructions.length; i++) { %>
-                <li>
-                    Step <%= recipe.instructions[i].stepNum %>: <%= recipe.instructions[i].step %>
-                </li>
-                <% } %>
-        </ul>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Step Number</th>
+                        <th scope="col">Instruction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i=0; i < recipe.instructions.length; i++) { %>
+                        <tr>
+                            <td><%= recipe.instructions[i].stepNum %></td>
+                            <td><%= recipe.instructions[i].step %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
 
         <a href="<%= recipe.id %>/edit" class="btn btn-primary">Edit Recipe</a>
     </div>
-    <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>

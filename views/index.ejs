@@ -1,25 +1,60 @@
 <%- include('./partials/header') %>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe For Your Soul</title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recipe For Your Soul</title>
+    </head>
 
-<body>
-    <h1 class="home">Recipe For Your Soul</h1>
+    <body class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <h1 class="home">Recipe For Your Soul</h1>
+                <p class="home"><strong>Just some recipe for your soul, maybe you want to make one for others</strong>
+                </p>
+                <p class='home'>Log in below to add your own recipes</p>
 
-    <p class="home">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam molestiae fugiat quas excepturi sequi distinctio nulla, amet eaque, mollitia numquam aperiam neque sint? Reiciendis deleniti provident molestias, quod nemo beatae.</p>
+                <div class="sticky-bottom">
+                    <% if (user) { %>
+                        Welcome <%= user.name %>
+                            <a class='btn btn-danger' href="/logout">Logout</a>
+                            <% } else { %>
+                                <a class='btn btn-primary' href="/auth/google">Login To Google</a>
+                                <% } %>
+                </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="10000">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2023/12/Beef-tenderloin-with-mushroom-sauce_4-1.jpg?resize=650,520"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2020/12/Pavlova-Christmas-Tree_9.jpg?resize=650,910"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://www.recipetineats.com/wp-content/uploads/2019/09/Espresso-Martini_3.jpg?resize=650,910"
+                                class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-    <div class="sticky-bottom">
-    <% if (user) { %>
-        Welcome <%= user.name %>
-            <a class='btn btn-danger' href="/logout">Logout</a>
-            <% } else { %>
-                <a class='btn btn-primary' href="/auth/google">Login To Google</a>
-                <% } %>
-    </div>
-    
-
- <%- include('./partials/footer') %>
+        <%- include('./partials/footer') %>
+    </body>

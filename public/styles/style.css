@@ -4,4 +4,42 @@ head {
 
 body {
     text-align: center;
+    background-color: rgb(184, 232, 219);
+}
+
+.navbar-dark .navbar-brand {
+    color: #fff;
+}
+
+.nav-pills .nav-link {
+    color: #fff;
+}
+
+.nav-pills .nav-link:hover {
+    color: #fff;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-color: #ffffff;
+}
+
+/* Style to make all images the same size */
+.recipe-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Style to move the image to the right and text to the left */
+.recipe-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.recipe-text {
+    flex: 1;
+    /* Take up remaining space */
+    padding-right: 20px;
+    /* Adjust as needed */
 }

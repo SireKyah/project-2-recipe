@@ -29,6 +29,8 @@ async function showRecipe(req, res) {
     const user = await Users.findOne({ 'recipes._id': recipeId });
     // console.log(user);
     const recipe = user.recipes.id(recipeId);
+    console.log(user.id);
+    console.log(recipeId);
     res.render('recipes/showRecipe', { user, recipe });
     // res.json(recipe);
 }
@@ -53,7 +55,7 @@ async function deleteRecipe(req, res) {
         const user = await Users.findOne({ 'recipes._id': recipeId });
 
         // If the user is found, remove the recipe from the recipes array
-        if (user) {
+        if (user._id.equals(req.user._id)) {
             user.recipes.pull({ _id: recipeId });
 
             // Save the user document after removing the recipe
@@ -74,10 +76,14 @@ async function deleteRecipe(req, res) {
 async function editRecipe(req, res) {
     // console.log(req.user);
     const recipeId = req.params.id;
-    // const user = await Users.findOne({ 'recipes._id': recipeId });
-    const recipe = req.user.recipes.id(recipeId);
+    const user = await Users.findOne({ 'recipes._id': recipeId });
+    const recipe = user.recipes.id(recipeId);
+    if (user._id.equals(req.user._id)) {
+        res.render(`recipes/editRecipes`, { user: req.user, recipe });
+    } else {
+        res.redirect('/recipes');
+    }
     // console.log(recipe);
-    res.render(`recipes/editRecipes`, { user: req.user, recipe });
 
     // if (user._id.equals(req.user._id)) {
     // res.render(`/recipes/editRecipes`, { user,   recipe });
